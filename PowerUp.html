@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="PowerUp.css" />
+	<script src="modernizr.min.js"></script>
+	<title>Power Up</title>
+</head>
+
+<!-- Front page:  title, short animation, play and instructions button -->
+<!-- Simulate autonomous routes. -->
+<!-- Show another route. -->
+
+<body>
+	<header>
+				
+		<div id="rules" style="top:300px;left:200px">
+			<p>
+				Field Layout
+			</p>
+			<p>
+				Pick robot's starting position.
+			</p>
+			<p>
+				Choose autonomous route.
+			</p>
+		</div>
+
+		<canvas id="FieldCanvas" style="position:absolute;left:0px;top:0px">
+		</canvas>
+		<canvas id="RobotCanvas" style="position:absolute;left:0px;top:0px">
+		</canvas>
+		<canvas id="StartCanvas" style="position:absolute;left:0px;top:0px">
+		</canvas>		
+		<canvas id="RouteCanvas" style="position:absolute;left:0px;top:0px">
+		</canvas>		
+		
+		<div id="Buttons" style="position:absolute;left:750px;top:100px;zIndex:200">
+			<form action="/action_page.php">
+			  <select name="drive">
+			    <option value="forward">Drive</option>
+			    <option value="turn">Turn</option>
+			  </select>
+			  <br><br>
+			  <input type="submit">
+			</form>
+			
+			<form action="/action_page.php">
+ 				 First name:<br>
+				  <input type="text" name="firstname" value="Mickey"><br>
+				  Last name:<br>
+ 					 <input type="text" name="lastname" value="Mouse"><br><br>
+					  <input type="submit" value="Submit">
+			</form>
+
+<!--			<button id="startLeftButton" type="button" onclick="displayLeft()">Left</button>
+			<button id="startCenterButton" type="button" onclick="displayCenter()">Center</button>
+			<button id="startRightButton" type="button" onclick="displayRight()">Right</button>
+			<button id="routeLeftScaleButton" type="button" onclick="displayRules()">Left Scale</button>
+			<button id="routeRightScaleButton" type="button" onclick="saveDrawing()">Right Scale</button>
+			<button id="startButton" type="button" onclick="removeDrawing()">Start</button>  -->
+		</div>
+		
+		
+
+		<script type="text/javascript" src='PowerUp.js'></script>
+
+	</header>
+</body>
+</html>
+	
+	
