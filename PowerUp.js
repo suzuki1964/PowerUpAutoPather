@@ -29,6 +29,10 @@
 	var driving = false;		//is robot driving?
 	
 drawField();
+leftScale();
+rightScale();
+leftSwitch();
+rightSwitch();
 chooseStart();
 //tryRoute();
 //saveRoute();
@@ -94,6 +98,106 @@ function drawField()
 
 		//front cube in PC zone
 				ctx.strokeRect(173*k,294*k,14*k,14*k);	//middle of bottom of P zone
+	}
+	
+function leftScale()
+	{
+		var canvas=document.getElementById('LScaleCanvas');
+		var ctx=canvas.getContext('2d');
+		canvas.width=screenWidth;
+		canvas.height=screenHeight;
+		canvas.style.zIndex = -50;	    
+	    ctx.strokeStyle = "blue";
+	    
+		//left scale
+		ctx.strokeRect(89*k,58*k,36*k,48*k);		//upper left corner (89,58), width 36, height 48		
+	}
+	
+function rightScale()
+	{
+		var canvas=document.getElementById('RScaleCanvas');
+		var ctx=canvas.getContext('2d');
+		canvas.width=screenWidth;
+		canvas.height=screenHeight;
+		canvas.style.zIndex = -60;	    
+	    ctx.strokeStyle = "blue";
+	    
+		//right scale
+		ctx.strokeRect(234*k,58*k,36*k,48*k);		//upper left corner (234,58), width 36, height 48			
+	}
+	
+function leftSwitch()
+	{
+		var canvas=document.getElementById('LSwitchCanvas');
+		var ctx=canvas.getContext('2d');
+		canvas.width=screenWidth;
+		canvas.height=screenHeight;
+		canvas.style.zIndex = -70;	    
+	    ctx.strokeStyle = "blue";
+	    
+		//left switch
+		ctx.strokeRect(108*k,214*k,36*k,48*k);		//upper left corner (108,214), width 36, height 48			
+	}
+	
+function rightSwitch()
+	{
+		var canvas=document.getElementById('RSwitchCanvas');
+		var ctx=canvas.getContext('2d');
+		canvas.width=screenWidth;
+		canvas.height=screenHeight;
+		canvas.style.zIndex = -80;	    
+	    ctx.strokeStyle = "blue";
+	    
+		//right switch
+		ctx.strokeRect(217*k,214*k,36*k,48*k);		//upper left corner (217,214), width 36, height 48			
+	}
+
+function showLL()
+	{
+		document.getElementById('LScaleCanvas').style.zIndex = 50;
+		document.getElementById('LSwitchCanvas').style.zIndex = 70;	
+	}
+	
+function hideLL()
+	{
+		document.getElementById('LScaleCanvas').style.zIndex = -50;
+		document.getElementById('LSwitchCanvas').style.zIndex = -70;	
+	}
+	
+function showLR()
+	{
+		document.getElementById('LScaleCanvas').style.zIndex = 50;
+		document.getElementById('RSwitchCanvas').style.zIndex = 80;	
+	}
+	
+function hideLR()
+	{
+		document.getElementById('LScaleCanvas').style.zIndex = -50;
+		document.getElementById('RSwitchCanvas').style.zIndex = -80;	
+	}
+	
+function showRL()
+	{
+		document.getElementById('RScaleCanvas').style.zIndex = 60;
+		document.getElementById('LSwitchCanvas').style.zIndex = 70;	
+	}
+	
+function hideRL()
+	{
+		document.getElementById('RScaleCanvas').style.zIndex = -60;
+		document.getElementById('LSwitchCanvas').style.zIndex = -70;	
+	}
+	
+function showRR()
+	{
+		document.getElementById('RScaleCanvas').style.zIndex = 60;
+		document.getElementById('RSwitchCanvas').style.zIndex = 80;	
+	}
+	
+function hideRR()
+	{
+		document.getElementById('RScaleCanvas').style.zIndex = -60;
+		document.getElementById('RSwitchCanvas').style.zIndex = -80;	
 	}
   
 function chooseStart()
@@ -201,6 +305,8 @@ function getReady()
 
 function showRoutes()		//display buttons to choose routes
 	{
+		hideLL();
+		hideRR();
 		var x = document.getElementById("rules");		//show message to choose route
     		x.style.display = "block";
  		var x = document.getElementById("StartButton");		//show message to choose route
@@ -337,6 +443,7 @@ function nextStep(i,j)
 		case 0:		//start R, drop block on R switch, get right block, put on R scale
 			switch (i) {
    			case 0:
+   				showRR();
         		goForward(130);		//start right
        			break;
   			case 1:
@@ -373,12 +480,18 @@ function nextStep(i,j)
         		turn (-90);
         		goForward(25);		//go to scale
        			break;
+       		case 10:
+ 				//put the robot below the buttons
+				document.getElementById('RobotCanvas').style.zIndex = -5;
+				//put the route below the buttons
+				document.getElementById('RouteCanvas').style.zIndex = -10;	
+				showRoutes();
+				break;
        		}
        		break;
-		case 1:		//start R, drop block on R scale, get R block, put on R scale
+		case 1:		//start R, drop block on R scale, get R block, put on R switch
 			switch (i) {
    			case 0:
-//    			lastPosition = RIGHTSTART;
 	       		goForward(280);		//start right
        			break;
   			case 1:
@@ -396,12 +509,19 @@ function nextStep(i,j)
         		turn(-30);
         		goForward (17);		//go to right scale
        			break;
+       		case 5:
+ 				//put the robot below the buttons
+				document.getElementById('RobotCanvas').style.zIndex = -5;
+				//put the route below the buttons
+				document.getElementById('RouteCanvas').style.zIndex = -10;	
+				showRoutes();
+				break;
        		}
 			break;
-		case 2:		//start L, drop block on L scale, get L block, put on L scale
+		case 2:		//start L, drop block on L scale, get L block, put on L switch
 			switch (i) {
    			case 0:
-//   				lastPosition = LEFTSTART;
+   				showLL();
         		goForward(280);		//start right
        			break;
   			case 1:
@@ -423,16 +543,15 @@ function nextStep(i,j)
  				//put the robot below the buttons
 				document.getElementById('RobotCanvas').style.zIndex = -5;
 				//put the route below the buttons
-				document.getElementById('RouteCanvas').style.zIndex = -10;
-			
+				document.getElementById('RouteCanvas').style.zIndex = -10;			
 				showRoutes();
-				break;
-       			
+				break;     			
        		}
 			break;
 		case 3:		//start L, drop block on L scale, get R block, put on R scale
 			switch (i) {
    			case 0:
+   				showLR();
        			goForward(280);		//start right
        			break;
   			case 1:
@@ -458,27 +577,58 @@ function nextStep(i,j)
  				//put the robot below the buttons
 				document.getElementById('RobotCanvas').style.zIndex = -5;
 				//put the route below the buttons
-				document.getElementById('RouteCanvas').style.zIndex = -10;
-			
+				document.getElementById('RouteCanvas').style.zIndex = -10;			
+				showRoutes();
+				break;
+       		}
+       		break;
+		case 4:		//start R, drop block on R scale, get L block, put on L scale
+			switch (i) {
+   			case 0:
+       			goForward(280);		//start right
+       			break;
+  			case 1:
+        		turn(-90);
+        		goForward (24);		//go to right scale
+       			break;
+  			case 2:
+        		goForward (-30);	//back up
+       			break;
+  			case 3:
+        		turn(-60);
+        		goForward (95);		//go to right scale
+       			break;
+  			case 4:
+        		turn(60);
+        		goForward (143);		//go to right scale
+       			break;
+  			case 5:
+        		turn(-90);
+        		goForward (23);		//go to right scale
+       			break;
+       		case 6:
+ 				//put the robot below the buttons
+				document.getElementById('RobotCanvas').style.zIndex = -5;
+				//put the route below the buttons
+				document.getElementById('RouteCanvas').style.zIndex = -10;	
 				showRoutes();
 				break;
        		}
 			break;
-		case 4:
+		case 5:
 			switch (i) {
 			case 0:
-				goForward (100);
+				goForward (150);
 				break;
 			case 1:
  				//put the robot below the buttons
 				document.getElementById('RobotCanvas').style.zIndex = -5;
 				//put the route below the buttons
-				document.getElementById('RouteCanvas').style.zIndex = -10;
-			
+				document.getElementById('RouteCanvas').style.zIndex = -10;			
 				showRoutes();
 				break;
-
 			}
+			break
 		}
 	}
 
