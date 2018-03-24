@@ -15,13 +15,7 @@
 <body>
 	<header>
 				
-		<div id="rules" style="top:300px;left:200px">
-			<p>
-				Field Layout
-			</p>
-			<p>
-				Pick robot's starting position.
-			</p>
+		<div id="rules" style="top:170px;left:750px;zIndex:200;display:none">
 			<p>
 				Choose autonomous route.
 			</p>
@@ -37,7 +31,7 @@
 		</canvas>		
 		
 		<div id="Buttons" style="position:absolute;left:750px;top:100px;zIndex:200">
-			<form action="/action_page.php">
+<!--			<form action="/action_page.php">
 			  <select name="drive">
 			    <option value="forward">Drive</option>
 			    <option value="turn">Turn</option>
@@ -53,13 +47,23 @@
  					 <input type="text" name="lastname" value="Mouse"><br><br>
 					  <input type="submit" value="Submit">
 			</form>
+-->
 
-<!--			<button id="startLeftButton" type="button" onclick="displayLeft()">Left</button>
-			<button id="startCenterButton" type="button" onclick="displayCenter()">Center</button>
-			<button id="startRightButton" type="button" onclick="displayRight()">Right</button>
-			<button id="routeLeftScaleButton" type="button" onclick="displayRules()">Left Scale</button>
-			<button id="routeRightScaleButton" type="button" onclick="saveDrawing()">Right Scale</button>
-			<button id="startButton" type="button" onclick="removeDrawing()">Start</button>  -->
+<!-- alliance scale position, alliance switch position, start position  -->
+			<button id="LLLButton" class="left" type="button" style="display:none" onclick="chooseRoute(2)">Left Scale, Left Switch</button>
+			<button id="LLRButton" class="right" type="button" style="display:none" onclick="chooseRoute(5)">Left Scale, Left Switch</button>
+			<button id="LLCButton" class="center" type="button" style="display:none" onclick="chooseRoute(5)">Left Scale, Left Switch</button>
+			<button id="LRLButton" class="left" type="button" style="display:none" onclick="chooseRoute(3)">Left Scale, Right Switch</button>
+			<button id="LRRButton" class="right" type="button" style="display:none" onclick="chooseRoute(5)">Left Scale, Right Switch</button>
+			<button id="LRCButton" class="center" type="button" style="display:none" onclick="chooseRoute(5)">Left Scale, Right Switch</button>  
+			<button id="RLLButton" class="left" type="button" style="display:none" onclick="chooseRoute(5)">Right Scale, Left Switch</button>  
+			<button id="RLRButton" class="right" type="button" style="display:none" onclick="chooseRoute(5)">Right Scale, Left Switch</button>  
+			<button id="RLCButton" class="center" type="button" style="display:none" onclick="chooseRoute(5)">Right Scale, Left Switch</button>  
+			<button id="RRLButton" class="left" type="button" style="display:none" onclick="chooseRoute(5)">Right Scale, Right Switch</button>  
+			<button id="RRRButton" class="right" type="button" style="display:none" onclick="chooseRoute(1)">Right Scale, Right Switch</button>  
+			<button id="RRCButton" class="center" type="button" style="display:none" onclick="chooseRoute(5)">Right Scale, Right Switch</button> 
+			<br><br> 
+			<button id="StartButton" class="center" type="button" style="display:none; color:orange" onclick="chooseStart()">Choose a new start position</button>  
 		</div>
 		
 		

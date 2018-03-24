@@ -4,24 +4,24 @@
 	var screenHeight = 1280;
 	var k=2;				// scaling for field (twice as many pixel as inches IRL)
 	var robotCenter = [204, 406 - 36];		// center of the front of the robot (in inches from upper left corner)
-	var leftStart = [48 + 15.75, 406 - 36];			// farthest left starting position for robot
-	var centerStart = [180 - 12 + 36, 406 - 36];		//center of center starting position for robot
-	var rightStart = [312 - 15.75, 406 - 36];		//farthest right starting position for robot
+	var LEFTSTART = [48 + 15.75, 406 - 36];			// farthest left starting position for robot
+	var CENTERSTART = [180 - 12 + 36, 406 - 36];		//center of center starting position for robot
+	var RIGHTSTART = [312 - 15.75, 406 - 36];		//farthest right starting position for robot
 	var canvas;
 	var ctx;
-	var i=0;
-	var x=204;				// initial coordinates for front center of robot
-	var y=370;
+	var i = 0;
+	var j = 0;
+	var x = 204;				// initial coordinates for front center of robot
+	var y = 370;
 	var next_x=204;				// robot coordinates incremented
 	var next_y=370;
 	var c;					// click event
 	var m;					// scaling for actual robot distance
+	var cursorPosition = [0,0];
 	var startPosition = [0, 0];		// center of the front of the robot at beginning of route
 	var lastPosition = [0, 0];		// center of the front of the robot at end of route
 	var forwardDistance = 0;		//distance in feet robot should travel forward
 	var distance = 0;
-	var forwardTime = 10;		//duration of time in seconds robot should travel forward
-	var time = 0;
 	var angleTurnRight = 0;		//angle in degrees robot should turn clockwise
 	var angle = 0;
 	var interval;
@@ -39,57 +39,27 @@ function drawField()
 		var ctx=canvas.getContext('2d');
 		canvas.width=screenWidth;
 		canvas.height=screenHeight;
-		canvas.style.zIndex = 0;
-		ctx.fillStyle = 'F0F0F0';		//make field gray and therefore opaque so other canvases can be hidden
+		canvas.style.zIndex = -10;
+		ctx.fillStyle = 'white';		//make field white and therefore opaque so other canvases can be hidden
 	    ctx.fillRect(0,0,screenWidth,screenHeight);
+	    
+//	    ctx.strokeStyle = "orange";
+
 
 		//platform and scale
 			ctx.beginPath();
 				ctx.moveTo(113*k,20*k);		//start at corner of platform
 				ctx.lineTo(246*k,20*k);		//go to far corner of platform
-				ctx.stroke();
-	
-				ctx.moveTo(246*k,20*k);
-				ctx.lineTo(246*k,58*k);		//to side of scale
-				ctx.stroke();
-				
-				ctx.moveTo(246*k,58*k);
+				ctx.lineTo(246*k,58*k);		//to side of scale	
 				ctx.lineTo(270*k,58*k);		//to front of scale
-				ctx.stroke();
-				
-				ctx.moveTo(270*k,58*k);
 				ctx.lineTo(270*k,106*k);	//to side of scale
-				ctx.stroke();
-				
-				ctx.moveTo(270*k,106*k);
 				ctx.lineTo(246*k,106*k);	//back to platform
-				ctx.stroke();
-				
-				ctx.moveTo(246*k,106*k);
 				ctx.lineTo(246*k,144*k);	//to corner of platform
-				ctx.stroke();
-				
-				ctx.moveTo(246*k,144*k);
 				ctx.lineTo(113*k,144*k);	//to third corner of platform
-				ctx.stroke();
-				
-				ctx.moveTo(113*k,144*k);
-				ctx.lineTo(113*k,106*k);	//to edge of other scale
-				ctx.stroke();
-				
-				ctx.moveTo(113*k,106*k);
+				ctx.lineTo(113*k,106*k);	//to edge of other scale				
 				ctx.lineTo(89*k,106*k);		//to front of scale
-				ctx.stroke();
-				
-				ctx.moveTo(89*k,106*k);
 				ctx.lineTo(89*k,58*k);		//to side of scale
-				ctx.stroke();
-				
-				ctx.moveTo(89*k,58*k);
 				ctx.lineTo(113*k,58*k);		//to edge of platform
-				ctx.stroke();
-				
-				ctx.moveTo(113*k,58*k);
 				ctx.lineTo(113*k,20*k);		//to back to corner of platform
 				ctx.stroke();
 		
@@ -97,21 +67,9 @@ function drawField()
 			ctx.beginPath();
 				ctx.moveTo(18*k,20*k);
 				ctx.lineTo(18*k,370*k);		//edge of field
-				ctx.stroke();
-				
-				ctx.moveTo(18*k,370*k);
 				ctx.lineTo(48*k,406*k);		//to starting edge
-				ctx.stroke();
-				
-				ctx.moveTo(48*k,406*k);
 				ctx.lineTo(312*k,406*k);	//to far side of starting edge
-				ctx.stroke();
-				
-				ctx.moveTo(312*k,406*k);
 				ctx.lineTo(342*k,370*k);	//to far side of field
-				ctx.stroke();
-				
-				ctx.moveTo(342*k,370*k);
 				ctx.lineTo(342*k,20*k);		//far edge of field
 				ctx.stroke();
 				
@@ -140,16 +98,22 @@ function drawField()
   
 function chooseStart()
 	{
+		hideRoutes();
+		//hide the robot
+		document.getElementById('RobotCanvas').style.zIndex = -20;
+		//hide the route
+		document.getElementById('RouteCanvas').style.zIndex = -40;
+		
 		var canvas=document.getElementById('StartCanvas');
 		var ctx=canvas.getContext('2d');
 		canvas.width=screenWidth;
 		canvas.height=screenHeight;
-
+		canvas.style.zIndex = 100;
 		ctx.strokeStyle = "red";
 	
-		drawRobot(ctx, leftStart);
-		drawRobot(ctx, centerStart);
-		drawRobot(ctx, rightStart);
+		drawRobot(ctx, LEFTSTART);
+		drawRobot(ctx, CENTERSTART);
+		drawRobot(ctx, RIGHTSTART);
 		
 		canvas.addEventListener("click", selectStartPosition);
     }
@@ -163,132 +127,374 @@ function drawRobot(ctx, robotCenter)
 		ctx.moveTo((robotCenter[0] - 7)*k,(robotCenter[1]*k));	//left grabber arm
 		ctx.lineTo((robotCenter[0] - 7)*k,(robotCenter[1] - 7)*k );
 		ctx.stroke();
-				
+			
 		ctx.moveTo((robotCenter[0] + 7)*k,(robotCenter[1]*k));	//right grabber arm
 		ctx.lineTo((robotCenter[0] + 7)*k,(robotCenter[1] - 7)*k );
 		ctx.stroke();	
 	}
 
-
 function selectStartPosition(c)
 	{
-		//hide the robots in the three starting positions
-		document.getElementById('StartCanvas').style.zIndex = -40;
-		
 		//get cursor position to see which robot was chosen
-		startPosition = [c.pageX, c.pageY];
+		cursorPosition = [c.pageX, c.pageY];
+
+		// check if the cursor is in the left robot
+ 		if ((cursorPosition[0] >= (LEFTSTART[0]-15.75)*k) && (cursorPosition[0] <= (LEFTSTART[0]+15.75)*k) 
+ 			&& (cursorPosition[1] >= LEFTSTART[1]*k) && (cursorPosition[1] <= (LEFTSTART[1]+36)*k))
+ 			{
+				startPosition[0] = LEFTSTART[0];	
+				startPosition[1] = LEFTSTART[1];	
+				ready = true;
+		  	}
+			
+		// check if the cursor is in the center robot
+ 		if ((cursorPosition[0] >= (CENTERSTART[0] - 15.75) * k) && (cursorPosition[0] <= (CENTERSTART[0] + 15.75)*k) 
+ 				&& (cursorPosition[1] >= (CENTERSTART[1])*k) && (cursorPosition[1] <= (CENTERSTART[1]+36)*k))
+ 			{
+				startPosition[0] = CENTERSTART[0];
+				startPosition[1] = CENTERSTART[1];
+				ready = true;
+		  	}
+
+		// check if the cursor is in the right robot
+ 		if ((cursorPosition[0] >= (RIGHTSTART[0] - 15.75) * k) && (cursorPosition[0] <= (RIGHTSTART[0] + 15.75)*k) 
+ 				&& (cursorPosition[1] >= (RIGHTSTART[1])*k) && (cursorPosition[1] <= (RIGHTSTART[1]+36)*k))
+  			{
+				startPosition[0] = RIGHTSTART[0];
+				startPosition[1] = RIGHTSTART[1];
+				ready = true;
+		  	}
+		else		//otherwise keep listening for a click
+			{
+				chooseStart();
+			}
+		  		
+		if (ready)
+		  	{
+				getReady();
+			}
+	}
+	
+function getReady()
+	{
+		//hide the robots in the three starting positions
+		document.getElementById('StartCanvas').style.zIndex = -30;
+		//hide the previous route
+		document.getElementById('RouteCanvas').style.zIndex = -40;
 				
 		//get robot canvas
 		canvas=document.getElementById('RobotCanvas');
 		ctx=canvas.getContext('2d');
 		canvas.width=screenWidth;
 		canvas.height=screenHeight;
-		canvas.style.zIndex = 100;
+		canvas.style.zIndex = -10;		//put it on top but below buttons
 		ctx.strokeStyle = "blue";
-
-		// check if the cursor is in the left robot
- 		if ((startPosition[0] >= (leftStart[0]-15.75)*k) && (startPosition[0] <= (leftStart[0]+15.75)*k) 
- 			&& (startPosition[1] >= leftStart[1]*k) && (startPosition[1] <= (leftStart[1]+36)*k))
- 				{
-					startPosition = leftStart;
-					ready = true;
-		  		}
-			
-		// check if the cursor is in the center robot
- 		if ((startPosition[0] >= (centerStart[0] - 15.75) * k) && (startPosition[0] <= (centerStart[0] + 15.75)*k) 
- 				&& (startPosition[1] >= (centerStart[1])*k) && (startPosition[1] <= (centerStart[1]+36)*k))
- 				{
-					startPosition = centerStart;
-					ready = true;
-		  		}
-
-		// check if the cursor is in the right robot
- 		if ((startPosition[0] >= (rightStart[0] - 15.75) * k) && (startPosition[0] <= (rightStart[0] + 15.75)*k) 
- 				&& (startPosition[1] >= (rightStart[1])*k) && (startPosition[1] <= (rightStart[1]+36)*k))
-  				{
-					startPosition = rightStart;
-					ready = true;
-		  		}
-		  	if (ready)
-		  		{
-		  			drawRobot(ctx, startPosition);
-		  			lastPosition = startPosition;
-		  			ready = false;
-		  			chooseRoute();
-				}
+				
+		drawRobot(ctx, startPosition);
+		showRoutes();			
+		lastPosition[0] = startPosition[0];
+		lastPosition[1] = startPosition[1];
+		angleTurnRight = 0;
+		ready = false;
 	}
 
-function chooseRoute()
+
+function showRoutes()		//display buttons to choose routes
 	{
+		var x = document.getElementById("rules");		//show message to choose route
+    		x.style.display = "block";
+ 		var x = document.getElementById("StartButton");		//show message to choose route
+    		x.style.display = "block";
+  			
+		var x = document.getElementById("LLLButton");
+  	 		if ((startPosition[0] == LEFTSTART[0]) &&  (startPosition[1] == LEFTSTART[1])){
+    			x.style.display = "block";
+  			} else {
+    			x.style.display = "none";
+			}    
+    	var x = document.getElementById("LRLButton");
+			if ((startPosition[0] == LEFTSTART[0]) &&  (startPosition[1] == LEFTSTART[1])) {
+    			x.style.display = "block";
+    		} else {
+        		x.style.display = "none";
+    		}    
+    	var x = document.getElementById("RLLButton");
+    		if ((startPosition[0] == LEFTSTART[0]) &&  (startPosition[1] == LEFTSTART[1])) {
+        		x.style.display = "block";
+    		} else {
+        		x.style.display = "none";
+    		}
+    	var x = document.getElementById("RRLButton");
+    		if ((startPosition[0] == LEFTSTART[0]) &&  (startPosition[1] == LEFTSTART[1])) {
+        		x.style.display = "block";
+    		} else {
+        		x.style.display = "none";
+    		}       
+    
+    	var x = document.getElementById("LLRButton");
+    		if ((startPosition[0] == RIGHTSTART[0]) && (startPosition[1] == RIGHTSTART[1])){
+        		x.style.display = "block";
+    		} else {
+        		x.style.display = "none";
+    		}        
+    	var x = document.getElementById("LRRButton");
+    		if ((startPosition[0] == RIGHTSTART[0]) && (startPosition[1] == RIGHTSTART[1])) {
+        		x.style.display = "block";
+    		} else {
+       			x.style.display = "none";
+    		}       
+     	var x = document.getElementById("RLRButton");
+    		if ((startPosition[0] == RIGHTSTART[0]) && (startPosition[1] == RIGHTSTART[1])) {
+        		x.style.display = "block";
+    		} else {
+        		x.style.display = "none";
+    		}        
+    	var x = document.getElementById("RRRButton");
+    		if ((startPosition[0] == RIGHTSTART[0]) && (startPosition[1] == RIGHTSTART[1])) {
+        		x.style.display = "block";
+    		} else {
+        		x.style.display = "none";
+    		}        
+    
+    	var x = document.getElementById("LLCButton");
+    		if ((startPosition[0] == CENTERSTART[0]) && (startPosition[1] == CENTERSTART[1])){
+        		x.style.display = "block";
+    		} else {
+        		x.style.display = "none";
+    		}        
+    	var x = document.getElementById("LRCButton");
+    		if ((startPosition[0] == CENTERSTART[0]) && (startPosition[1] == CENTERSTART[1])) {
+        		x.style.display = "block";
+    		} else {
+        		x.style.display = "none";
+    		}        
+    	var x = document.getElementById("RLCButton");
+    		if ((startPosition[0] == CENTERSTART[0]) && (startPosition[1] == CENTERSTART[1])) {
+        		x.style.display = "block";
+    		} else {
+        		x.style.display = "none";
+    		}        
+    	var x = document.getElementById("RRCButton");
+    		if ((startPosition[0] == CENTERSTART[0]) && (startPosition[1] == CENTERSTART[1])) {
+        		x.style.display = "block";
+    		} else {
+        		x.style.display = "none";
+    		}    
+	}
+
+function hideRoutes()		//hide buttons to choose routes
+	{
+		var x = document.getElementById("rules");		//hide message to choose route
+    		x.style.display = "none";
+ 		var x = document.getElementById("StartButton");		//hide message to choose route
+    		x.style.display = "none";
+  			
+		var x = document.getElementById("LLLButton");
+    		x.style.display = "none";			
+    	var x = document.getElementById("LRLButton");
+        	x.style.display = "none"; 
+    	var x = document.getElementById("RLLButton");
+       		x.style.display = "none";
+    	var x = document.getElementById("RRLButton");
+        	x.style.display = "none";        
+    	var x = document.getElementById("LLRButton");
+       		x.style.display = "none";      
+    	var x = document.getElementById("LRRButton");
+       		x.style.display = "none";      
+     	var x = document.getElementById("RLRButton");
+       		x.style.display = "none";           
+    	var x = document.getElementById("RRRButton");
+       		x.style.display = "none";      
+		var x = document.getElementById("LLCButton");
+       		x.style.display = "none";      
+	   	var x = document.getElementById("LRCButton");
+       		x.style.display = "none";             
+    	var x = document.getElementById("RLCButton");
+       		x.style.display = "none";      
+    	var x = document.getElementById("RRCButton");
+       		x.style.display = "none";        
+	}
+
+function chooseRoute(j)
+	{
+		getReady();
+		
 		canvas=document.getElementById("RouteCanvas");
 		canvas.width=screenWidth;
 		canvas.height=screenHeight;
+		canvas.style.zIndex = 100;		//put it on top but below buttons
+		drawRobot(ctx, startPosition);
+		lastPosition[0] = startPosition[0];
+		lastPosition[1] = startPosition[1];
 		i=0;
-		nextStep(i);
+		route = j;
+		nextStep(i,route);
 	}
 
-function nextStep(i)
+function nextStep(i,j)
 	{
-		switch (i) {
-   		case 0:
-        		goForward(130);
-       		break;
-  		case 1:
+		switch (j){
+		case 0:		//start R, drop block on R switch, get right block, put on R scale
+			switch (i) {
+   			case 0:
+        		goForward(130);		//start right
+       			break;
+  			case 1:
         		turn(-90);
-        		goForward (37);
-       		break;
-  		case 2:
-        		goForward (-40);
-       		break;
-  		case 3:
+        		goForward (37);		//go to right switch
+       			break;
+  			case 2:
+        		goForward (-37);	//back up
+       			break;
+  			case 3:
         		turn(90);
-        		goForward (70);
-       		break;
-  		case 4:
+        		goForward (70);		//head up to blocks behind switch
+       			break;
+  			case 4:
         		turn(-90);
-        		goForward (48);
-       		break;
-	  	case 5:
+        		goForward (45);		//line up with rightmost block
+       			break;
+	  		case 5:
         		turn(-90);
-        		goForward (27);
-       		break;
-  		case 6:
-        		goForward (-10);
-       		break;
-  		case 7:
+        		goForward (27);		//get rightmost block
+       			break;
+  			case 6:
+        		goForward (-10);	//back up
+       			break;
+  			case 7:
         		turn (-90);
-        		goForward (50)
-       		break;
-  		case 8:
+        		goForward (45)		//head to right side
+       			break;
+  			case 8:
         		turn (-90);
-        		goForward(100);
-       		break;
-       	case 9:
+        		goForward(100);		//head to scale
+       			break;
+       		case 9:
         		turn (-90);
-        		goForward(30);
+        		goForward(25);		//go to scale
+       			break;
+       		}
        		break;
-	
+		case 1:		//start R, drop block on R scale, get R block, put on R scale
+			switch (i) {
+   			case 0:
+//    			lastPosition = RIGHTSTART;
+	       		goForward(280);		//start right
+       			break;
+  			case 1:
+        		turn(-90);
+        		goForward (25);		//go to right scale
+       			break;
+  			case 2:
+        		goForward (-30);	//back up
+       			break;
+  			case 3:
+        		turn(-60);
+        		goForward (102);		//go to right scale
+       			break;
+  			case 4:
+        		turn(-30);
+        		goForward (17);		//go to right scale
+       			break;
+       		}
+			break;
+		case 2:		//start L, drop block on L scale, get L block, put on L scale
+			switch (i) {
+   			case 0:
+//   				lastPosition = LEFTSTART;
+        		goForward(280);		//start right
+       			break;
+  			case 1:
+         		turn(90);
+        		goForward (24);		//go to right scale
+       			break;
+  			case 2:
+        		goForward (-30);	//back up
+       			break;
+  			case 3:
+         		turn(60);
+        		goForward (106);		//go to right scale
+       			break;
+  			case 4:
+         		turn(30);
+        		goForward (16);		//go to right scale
+      			break;
+			case 5:
+ 				//put the robot below the buttons
+				document.getElementById('RobotCanvas').style.zIndex = -5;
+				//put the route below the buttons
+				document.getElementById('RouteCanvas').style.zIndex = -10;
+			
+				showRoutes();
+				break;
+       			
+       		}
+			break;
+		case 3:		//start L, drop block on L scale, get R block, put on R scale
+			switch (i) {
+   			case 0:
+       			goForward(280);		//start right
+       			break;
+  			case 1:
+        		turn(90);
+        		goForward (24);		//go to right scale
+       			break;
+  			case 2:
+        		goForward (-30);	//back up
+       			break;
+  			case 3:
+        		turn(60);
+        		goForward (95);		//go to right scale
+       			break;
+  			case 4:
+        		turn(-60);
+        		goForward (144);		//go to right scale
+       			break;
+  			case 5:
+        		turn(90);
+        		goForward (23);		//go to right scale
+       			break;
+       		case 6:
+ 				//put the robot below the buttons
+				document.getElementById('RobotCanvas').style.zIndex = -5;
+				//put the route below the buttons
+				document.getElementById('RouteCanvas').style.zIndex = -10;
+			
+				showRoutes();
+				break;
+       		}
+			break;
+		case 4:
+			switch (i) {
+			case 0:
+				goForward (100);
+				break;
+			case 1:
+ 				//put the robot below the buttons
+				document.getElementById('RobotCanvas').style.zIndex = -5;
+				//put the route below the buttons
+				document.getElementById('RouteCanvas').style.zIndex = -10;
+			
+				showRoutes();
+				break;
 
-}
+			}
+		}
 	}
 
 function goForward(distance)
 	{
-
 		x=lastPosition[0];
 		y=lastPosition[1];
 		forwardDistance = distance;
 		driving = true;
-
-		interval=setInterval("drawRoute()",10);
-
-
 		
-//		document.getElementById('RouteCanvas').style.zIndex = 200;
+		interval=setInterval("drawRoute()",10);
 	}
 	
 function drawRoute()
 	{
+
 		if (driving)
 		{
 			canvas=document.getElementById("RouteCanvas");  //draw route in red
@@ -303,7 +509,6 @@ function drawRoute()
 					ctx.beginPath();
 					ctx.moveTo(x * k,y * k);
 					ctx.lineTo(next_x * k,next_y * k);
-			
 					ctx.stroke();
 					
 					canvas=document.getElementById('RobotCanvas');		//move robot along path (in blue)
@@ -315,7 +520,6 @@ function drawRoute()
 					ctx.rotate(angleTurnRight*Math.PI/180);
 		  			drawRobot(ctx, [(next_x * Math.cos(angleTurnRight * Math.PI / 180)) + (next_y * Math.sin(angleTurnRight * Math.PI / 180)),(next_y * Math.cos(angleTurnRight * Math.PI / 180)) - (next_x * Math.sin(angleTurnRight * Math.PI / 180))]);
 
-
 					x=next_x;
 					y=next_y;
 				}
@@ -324,9 +528,8 @@ function drawRoute()
 					lastPosition[0] = x;
 					lastPosition[1] = y;
 					i=i+1;
-		//			alert (i);
 					clearInterval(interval);
-					nextStep(i);
+					nextStep(i,route);
 				}
 			}
 	}
