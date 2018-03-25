@@ -46,9 +46,6 @@ function drawField()
 		canvas.style.zIndex = -10;
 		ctx.fillStyle = 'white';		//make field white and therefore opaque so other canvases can be hidden
 	    ctx.fillRect(0,0,screenWidth,screenHeight);
-	    
-//	    ctx.strokeStyle = "orange";
-
 
 		//platform and scale
 			ctx.beginPath();
@@ -79,16 +76,13 @@ function drawField()
 				
 		//switch		
 				ctx.strokeRect(104*k,210*k,153*k,56*k);		//upper left corner (104,210), width 153, height 56
-
 				
 		//PC zone
 				ctx.strokeRect(157*k,266*k,46*k,42*k);	//upper left corner (157,266), width 46, height 42
-
 				
 		//exchange zone
 				ctx.strokeRect(120*k,370*k,48*k,36*k);	//upper left corner (120,370), width 48, height 36
-
-		
+	
 		//loop over cubes along switch
 		for (var i = 0; i < 6; i += 1)
 			{
@@ -108,7 +102,7 @@ function leftScale()
 		canvas.height=screenHeight;
 		canvas.style.zIndex = -50;	    
 	    ctx.strokeStyle = "blue";
-	    
+
 		//left scale
 		ctx.strokeRect(89*k,58*k,36*k,48*k);		//upper left corner (89,58), width 36, height 48		
 	}
@@ -201,13 +195,13 @@ function hideRR()
 	}
   
 function chooseStart()
-	{
+	{    
 		hideRoutes();
 		//hide the robot
 		document.getElementById('RobotCanvas').style.zIndex = -20;
 		//hide the route
 		document.getElementById('RouteCanvas').style.zIndex = -40;
-		
+	
 		var canvas=document.getElementById('StartCanvas');
 		var ctx=canvas.getContext('2d');
 		canvas.width=screenWidth;
@@ -311,114 +305,57 @@ function showRoutes()		//display buttons to choose routes
     		x.style.display = "block";
  		var x = document.getElementById("StartButton");		//show message to choose route
     		x.style.display = "block";
-  			
-		var x = document.getElementById("LLLButton");
-  	 		if ((startPosition[0] == LEFTSTART[0]) &&  (startPosition[1] == LEFTSTART[1])){
-    			x.style.display = "block";
-  			} else {
-    			x.style.display = "none";
-			}    
-    	var x = document.getElementById("LRLButton");
-			if ((startPosition[0] == LEFTSTART[0]) &&  (startPosition[1] == LEFTSTART[1])) {
-    			x.style.display = "block";
-    		} else {
-        		x.style.display = "none";
-    		}    
-    	var x = document.getElementById("RLLButton");
-    		if ((startPosition[0] == LEFTSTART[0]) &&  (startPosition[1] == LEFTSTART[1])) {
-        		x.style.display = "block";
-    		} else {
-        		x.style.display = "none";
-    		}
-    	var x = document.getElementById("RRLButton");
-    		if ((startPosition[0] == LEFTSTART[0]) &&  (startPosition[1] == LEFTSTART[1])) {
-        		x.style.display = "block";
-    		} else {
-        		x.style.display = "none";
-    		}       
-    
-    	var x = document.getElementById("LLRButton");
-    		if ((startPosition[0] == RIGHTSTART[0]) && (startPosition[1] == RIGHTSTART[1])){
-        		x.style.display = "block";
-    		} else {
-        		x.style.display = "none";
-    		}        
-    	var x = document.getElementById("LRRButton");
-    		if ((startPosition[0] == RIGHTSTART[0]) && (startPosition[1] == RIGHTSTART[1])) {
-        		x.style.display = "block";
-    		} else {
-       			x.style.display = "none";
-    		}       
-     	var x = document.getElementById("RLRButton");
-    		if ((startPosition[0] == RIGHTSTART[0]) && (startPosition[1] == RIGHTSTART[1])) {
-        		x.style.display = "block";
-    		} else {
-        		x.style.display = "none";
-    		}        
-    	var x = document.getElementById("RRRButton");
-    		if ((startPosition[0] == RIGHTSTART[0]) && (startPosition[1] == RIGHTSTART[1])) {
-        		x.style.display = "block";
-    		} else {
-        		x.style.display = "none";
-    		}        
-    
-    	var x = document.getElementById("LLCButton");
-    		if ((startPosition[0] == CENTERSTART[0]) && (startPosition[1] == CENTERSTART[1])){
-        		x.style.display = "block";
-    		} else {
-        		x.style.display = "none";
-    		}        
-    	var x = document.getElementById("LRCButton");
-    		if ((startPosition[0] == CENTERSTART[0]) && (startPosition[1] == CENTERSTART[1])) {
-        		x.style.display = "block";
-    		} else {
-        		x.style.display = "none";
-    		}        
-    	var x = document.getElementById("RLCButton");
-    		if ((startPosition[0] == CENTERSTART[0]) && (startPosition[1] == CENTERSTART[1])) {
-        		x.style.display = "block";
-    		} else {
-        		x.style.display = "none";
-    		}        
-    	var x = document.getElementById("RRCButton");
-    		if ((startPosition[0] == CENTERSTART[0]) && (startPosition[1] == CENTERSTART[1])) {
-        		x.style.display = "block";
-    		} else {
-        		x.style.display = "none";
-    		}    
-	}
 
+ 		for (var i = 0; i < 8; i += 1)
+			{
+				var x = document.getElementsByClassName("left");
+ 					if (startPosition[0] == LEFTSTART[0]){
+    					x[i].style.display = "block";
+  					} else {
+		    			x[i].style.display = "none";
+		    		}		
+		    }	
+  		for (var i = 0; i < 8; i += 1)
+			{
+				var x = document.getElementsByClassName("right");
+ 					if (startPosition[0] == RIGHTSTART[0]){
+    					x[i].style.display = "block";
+  					} else {
+		    			x[i].style.display = "none";
+		    		}	
+		    }		
+  		for (var i = 0; i < 8; i += 1)
+			{
+				var x = document.getElementsByClassName("center");
+ 					if (startPosition[0] == CENTERSTART[0]){
+    					x[i].style.display = "block";
+  					} else {
+		    			x[i].style.display = "none";
+		    		}			
+			}
+		}
 function hideRoutes()		//hide buttons to choose routes
 	{
 		var x = document.getElementById("rules");		//hide message to choose route
     		x.style.display = "none";
  		var x = document.getElementById("StartButton");		//hide message to choose route
     		x.style.display = "none";
-  			
-		var x = document.getElementById("LLLButton");
-    		x.style.display = "none";			
-    	var x = document.getElementById("LRLButton");
-        	x.style.display = "none"; 
-    	var x = document.getElementById("RLLButton");
-       		x.style.display = "none";
-    	var x = document.getElementById("RRLButton");
-        	x.style.display = "none";        
-    	var x = document.getElementById("LLRButton");
-       		x.style.display = "none";      
-    	var x = document.getElementById("LRRButton");
-       		x.style.display = "none";      
-     	var x = document.getElementById("RLRButton");
-       		x.style.display = "none";           
-    	var x = document.getElementById("RRRButton");
-       		x.style.display = "none";      
-		var x = document.getElementById("LLCButton");
-       		x.style.display = "none";      
-	   	var x = document.getElementById("LRCButton");
-       		x.style.display = "none";             
-    	var x = document.getElementById("RLCButton");
-       		x.style.display = "none";      
-    	var x = document.getElementById("RRCButton");
-       		x.style.display = "none";        
+		for (var i = 0; i < 8; i += 1)
+			{
+				var x = document.getElementsByClassName("left");
+    			x[i].style.display = "none";
+    		}			
+		for (var i = 0; i < 8; i += 1)
+			{
+				var x = document.getElementsByClassName("right");
+    			x[i].style.display = "none";
+    		}			
+		for (var i = 0; i < 8; i += 1)
+			{
+				var x = document.getElementsByClassName("center");
+    			x[i].style.display = "none";
+    		}			
+
 	}
 
 function chooseRoute(j)

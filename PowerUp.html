@@ -21,6 +21,7 @@
 			</p>
 		</div>
 
+		
 		<canvas id="FieldCanvas" style="position:absolute;left:0px;top:0px">
 		</canvas>
 		<canvas id="RobotCanvas" style="position:absolute;left:0px;top:0px">
@@ -39,37 +40,35 @@
 		</canvas>		
 		
 		<div id="Buttons" style="position:absolute;left:750px;top:100px;zIndex:200;">
-<!--			<form action="/action_page.php">
-			  <select name="drive">
-			    <option value="forward">Drive</option>
-			    <option value="turn">Turn</option>
-			  </select>
-			  <br><br>
-			  <input type="submit">
-			</form>
-			
-			<form action="/action_page.php">
- 				 First name:<br>
-				  <input type="text" name="firstname" value="Mickey"><br>
-				  Last name:<br>
- 					 <input type="text" name="lastname" value="Mouse"><br><br>
-					  <input type="submit" value="Submit">
-			</form>
--->
 
-<!-- alliance scale position, alliance switch position, start position  -->
-			<button id="LLLButton" class="left" type="button" style="display:none" onmousedown="chooseRoute(2)">Left Scale, Left Switch</button>
-			<button id="LLRButton" class="right" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Scale, Left Switch</button>
-			<button id="LLCButton" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Scale, Left Switch</button>
-			<button id="LRLButton" class="left" type="button" style="display:none" onmousedown="chooseRoute(3)">Left Scale, Right Switch</button>
-			<button id="LRRButton" class="right" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Scale, Right Switch</button>
-			<button id="LRCButton" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Scale, Right Switch</button>  
-			<button id="RLLButton" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Scale, Left Switch</button>  
-			<button id="RLRButton" class="right" type="button" style="display:none" onmousedown="chooseRoute(4)">Right Scale, Left Switch</button>  
-			<button id="RLCButton" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Scale, Left Switch</button>  
-			<button id="RRLButton" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Scale, Right Switch</button>  
-			<button id="RRRButton" class="right" type="button" style="display:none" onmousedown="chooseRoute(1)">Right Scale, Right Switch</button>  
-			<button id="RRCButton" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Scale, Right Switch</button> 
+<!-- alliance switch position, alliance scale position, red switch position, start position  -->
+			<button id="LLLButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(2)">Left Switch, Left Scale</button>
+			<button id="LLLButtonR" class="right" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Switch, Left Scale</button>
+			<button id="LLLButtonC" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Switch, Left Scale</button>
+			<button id="LLRButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(3)">Left Switch, Right Scale</button>
+			<button id="LLRButtonR" class="right" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Switch, Right Scale</button>
+			<button id="LLRButtonC" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Switch, Right Scale</button>  
+
+			<button id="LRLButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Switch, Left Scale</button>  
+			<button id="LRLButtonR" class="right" type="button" style="display:none" onmousedown="chooseRoute(4)">Right Switch, Left Scale</button>  
+			<button id="LRLButtonC" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Switch, Left Scale</button>  
+			<button id="LRRButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Switch, Right Scale</button>  
+			<button id="LRRButtonR" class="right" type="button" style="display:none" onmousedown="chooseRoute(1)">Right Switch, Right Scale</button>  
+			<button id="LRRButtonC" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Switch, Right Scale</button> 
+
+			<button id="RLLButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Switch, Left Scale</button>  
+			<button id="RLLButtonR" class="right" type="button" style="display:none" onmousedown="chooseRoute(4)">Right Switch, Left Scale</button>  
+			<button id="RLLButtonC" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Switch, Left Scale</button>  
+			<button id="RLRButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(3)">Left Switch, Right Scale</button>
+			<button id="RLRButtonR" class="right" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Switch, Right Scale</button>
+			<button id="RLRButtonC" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Switch, Right Scale</button>  
+
+			<button id="RRLButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Switch, Right Scale</button>  
+			<button id="RRLButtonR" class="right" type="button" style="display:none" onmousedown="chooseRoute(1)">Right Switch, Right Scale</button>  
+			<button id="RRLButtonC" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Switch, Right Scale</button> 
+			<button id="RRRButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Switch, Right Scale</button>  
+			<button id="RRRButtonR" class="right" type="button" style="display:none" onmousedown="chooseRoute(1)">Right Switch, Right Scale</button>  
+			<button id="RRRButtonC" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Switch, Right Scale</button> 
 			<br><br> 
 			<button id="StartButton" class="center" type="button" style="display:none;color:orange" onclick="chooseStart()">Choose a new start position</button>  
 		</div>
