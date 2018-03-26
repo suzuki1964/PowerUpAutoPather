@@ -2,42 +2,83 @@
 
 	var screenWidth = 960;
 	var screenHeight = 1280;
-	var k=2;				// scaling for field (twice as many pixel as inches IRL)
-	var robotCenter = [204, 406 - 36];		// center of the front of the robot (in inches from upper left corner)
-	var LEFTSTART = [48 + 15.75, 406 - 36];			// farthest left starting position for robot
-	var CENTERSTART = [180 - 12 + 36, 406 - 36];		//center of center starting position for robot
-	var RIGHTSTART = [312 - 15.75, 406 - 36];		//farthest right starting position for robot
-	var canvas;
-	var ctx;
-	var i = 0;
-	var j = 0;
-	var x = 204;				// initial coordinates for front center of robot
-	var y = 370;
-	var next_x=204;				// robot coordinates incremented
-	var next_y=370;
-	var c;					// click event
-	var m;					// scaling for actual robot distance
-	var cursorPosition = [0,0];
-	var startPosition = [0, 0];		// center of the front of the robot at beginning of route
-	var lastPosition = [0, 0];		// center of the front of the robot at end of route
-	var forwardDistance = 0;		//distance in feet robot should travel forward
-	var distance = 0;
-	var angleTurnRight = 0;		//angle in degrees robot should turn clockwise
-	var angle = 0;
-	var interval;
-	var ready = false;
-	var driving = false;		//is robot driving?
+	var m;
+	var gameData = ["","",""];
 
-
-rightSwitch();
-function rightSwitch()
-	{
-    	m = document.getElementById("2R");
-        m.setAttribute("style", "fill:blue;fill-opacity:0.6");  
-
-    }	    
-
-
+//select robot starting position 
+	function left()
+		{
+	    	m = document.getElementById("centerStart");
+	    	m.remove();
+	    	m = document.getElementById("rightStart");
+	    	m.remove();
+		}
+	function center()
+		{
+	    	m = document.getElementById("rightStart");
+	    	m.remove();
+	    	m = document.getElementById("leftStart");
+	    	m.remove();
+		}
+	function right()
+		{
+	   		m = document.getElementById("centerStart");
+	    	m.remove();
+	    	m = document.getElementById("leftStart");
+	    	m.remove();
+		}
+	
+//select gameData switch/scale colors
+	function rightNearSwitch()
+		{
+    		m = document.getElementById("0R");
+        	m.setAttribute("style", "fill:blue;fill-opacity:0.6");  
+    		m = document.getElementById("0L");
+        	m.setAttribute("style", "fill:red;fill-opacity:0.6");  
+        	m = document.getElementById("XRRr");
+			m.setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:block");  
+        	m = document.getElementById("XRRrani");
+			m.setAttribute("style", "display:block");  
+    	}
+	function leftNearSwitch()
+		{
+    		m = document.getElementById("0R");
+        	m.setAttribute("style", "fill:red;fill-opacity:0.6");  
+    		m = document.getElementById("0L");
+        	m.setAttribute("style", "fill:blue;fill-opacity:0.6");  
+        	m = document.getElementById("XLLl");
+			m.setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:block");  
+        	m = document.getElementById("XLLlani");
+			m.setAttribute("style", "display:block");  
+    	}
+	function rightScale()
+		{
+    		m = document.getElementById("1R");
+        	m.setAttribute("style", "fill:blue;fill-opacity:0.6");  
+    		m = document.getElementById("1L");
+        	m.setAttribute("style", "fill:red;fill-opacity:0.6");  
+    	}
+	function leftScale()
+		{
+    		m = document.getElementById("1R");
+        	m.setAttribute("style", "fill:red;fill-opacity:0.6");  
+    		m = document.getElementById("1L");
+        	m.setAttribute("style", "fill:blue;fill-opacity:0.6");  
+    	}
+	function rightFarSwitch()
+		{
+    		m = document.getElementById("2R");
+        	m.setAttribute("style", "fill:blue;fill-opacity:0.6");  
+    		m = document.getElementById("2L");
+        	m.setAttribute("style", "fill:red;fill-opacity:0.6");  
+    	}
+	function leftFarSwitch()
+		{
+    		m = document.getElementById("2R");
+        	m.setAttribute("style", "fill:red;fill-opacity:0.6");  
+    		m = document.getElementById("2L");
+        	m.setAttribute("style", "fill:blue;fill-opacity:0.6");  
+    	}
 
 /*	
 drawField();

@@ -14,9 +14,12 @@
 <body>
 	<header>
 				
-		<div id="rules" style="top:270px;left:750px;zIndex:200;display:none">
+		<div id="rules" style="top:370px;left:50px;zIndex:200;display:block">
 			<p>
-				Choose an autonomous route.
+				Choose a starting position route.
+			</p>
+			<p>
+				Click on alliance switch/scale positions.
 			</p>
 		</div>
 
@@ -50,13 +53,13 @@
    		<rect x="381.47" y="113.56" width="62.53" height="132.88" style="fill:red;fill-opacity:0.3;stroke:purple;stroke-width:1" />
   		<rect x="444" y="113.56" width="62.53" height="132.88" style="fill:blue;fill-opacity:0.3;stroke:purple;stroke-width:1" />
 	<!-- switch plate -->
-   		<rect x="264" y="107.56" width="48" height="36" id="2R" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" />
-  		<rect x="264" y="216.44" width="48" height="36" id="2L" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" />
-  		<rect x="576" y="107.56" width="48" height="36" id="0R" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" />
-  		<rect x="576" y="216.44" width="48" height="36" id="0L" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" />
+   		<rect x="264" y="107.56" width="48" height="36" id="2R" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" onmousedown="rightFarSwitch()" />
+  		<rect x="264" y="216.44" width="48" height="36" id="2L" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" onmousedown="leftFarSwitch()" />
+  		<rect x="576" y="107.56" width="48" height="36" id="0R" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" onmousedown="rightNearSwitch()" />
+  		<rect x="576" y="216.44" width="48" height="36" id="0L" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" onmousedown="leftNearSwitch()" />
 	<!-- scale plate -->
-   		<rect x="419.65" y="89.88" width="48" height="36" id="1R" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" />
-  		<rect x="419.65" y="233.88" width="48" height="36" id="1L" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" />
+   		<rect x="419.65" y="89.88" width="48" height="36" id="1R" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" onmousedown="rightScale()" />
+  		<rect x="419.65" y="233.88" width="48" height="36" id="1L" style="fill:gray;fill-opacity:0.3;stroke:purple;stroke-width:1" onmousedown="leftScale()" />
     <!-- reference resourses by ID in xlink:href attribute -->
     <use xlink:href="#cubes" transform="translate(218 173)"/> <!-- red power cubes -->    
     <use xlink:href="#cubes" transform="translate(232 166)"/>
@@ -91,78 +94,207 @@
     <use xlink:href="#cubes" transform="translate(642 180)"/>
     <use xlink:href="#cubes" transform="translate(642 173)"/>    
     <use xlink:href="#cubes" transform="translate(656 173)"/>
-	
-	<use xlink:href="#robot" transform="translate(732 63.75)"/>
 
-	<use xlink:href="#robot" transform="translate(732 63.75)">
+<!-- robot in all three starting positions -->	
+	<use id="rightStart" xlink:href="#robot" transform="translate(732 63.75)" onmousedown="right()"/>
+	<use id="centerStart" xlink:href="#robot" transform="translate(732 164)" onmousedown="center()"/>
+	<use id="leftStart" xlink:href="#robot" transform="translate(732 296)" onmousedown="left()"/>
+
+<!-- animation and path for XRR right start position -->
+	<use id="XRRrani" xlink:href="#robot" transform="translate(732 63.75)" display="none">
         <animateTransform
             attributeName="transform" type="translate"
             values="0 0;
-                     -350 0"
+                     -291 0"
             additive="sum"
-            begin="0s"
+            fill="freeze"
+            begin="click"
             dur="3s"
-            
+            id="XRRstep1" />
+        <animateTransform
             attributeName="transform" type="rotate"
-            values="0 0 0; 90 0 0"
+            values="0 0 0; -90 3 0"
             additive="sum"
-            dur="3s"
-             />
-  </use>
-            <path d="M732,63.75 l-265,0 a23,23 0 0,0 -23,23 a23,-23 0 0,0 -23,-23  l90,0 a23,23 0 0,1 23,23 a23,23 0 0,0 23,23" style="stroke: red; stroke-width:2; fill:none"/>
-
-   <rect x="0" y="-15.75" width="36" height="31.5"
-        style="stroke: #ff0000; fill: none;">
-      <animateMotion
-              path="M732,63.75 l-265,0 a23,23 0 0,0 -23,23 a23,-23 0 0,0 -23,-23  l90,0 a23,23 0 0,1 23,23 a23,23 0 0,0 23,23"
-              begin="0s" dur="10s" 
-              rotate="auto"
-              />
-  </rect>
-</svg>
-
-		
-		<div id="Buttons" style="position:absolute;left:750px;top:100px;zIndex:200;">
-<!--			<form action="/action_page.php">
-			  <select name="drive">
-			    <option value="forward">Drive</option>
-			    <option value="turn">Turn</option>
-			  </select>
-			  <br><br>
-			  <input type="submit">
-			</form>
-			
-			<form action="/action_page.php">
- 				 First name:<br>
-				  <input type="text" name="firstname" value="Mickey"><br>
-				  Last name:<br>
- 					 <input type="text" name="lastname" value="Mouse"><br><br>
-					  <input type="submit" value="Submit">
-			</form>
-			
-				<use xlink:href="#robot">
+            dur="1s"
+            begin="XRRstep1.end"
+    		fill="freeze" 
+			id="XRRstep2" />
+		<animateTransform
+            attributeName="transform" type="translate"
+            values="0 0;
+                     -20 0"
+            additive="sum"
+            fill="freeze"
+            begin="XRRstep2.end"
+            dur="1s"
+            id="XRRstep3" />
+		<animateTransform
+            attributeName="transform" type="translate"
+            values="0 0;
+                     20 0"
+            additive="sum"
+            fill="freeze"
+            begin="XRRstep3.end + 1s"
+            dur="1s"
+            id="XRRstep4" />
+        <animateTransform
+            attributeName="transform" type="rotate"
+            values="0 0 0; -90 3 0"
+            additive="sum"
+            dur="1s"
+            begin="XRRstep4.end"
+    		fill="freeze" 
+			id="XRRstep5" />
+		<animateTransform
+            attributeName="transform" type="translate"
+            values="0 0;
+                     -85 0"
+            additive="sum"
+            fill="freeze"
+            begin="XRRstep5.end"
+            dur="1s"
+            id="XRRstep6" />
+        <animateTransform
+            attributeName="transform" type="rotate"
+            values="0 0 0; 90 -3 0"
+            additive="sum"
+            dur="1s"
+            begin="XRRstep6.end"
+    		fill="freeze" 
+			id="XRRstep7" />
+		<animateTransform
+            attributeName="transform" type="translate"
+            values="0 0;
+                     -47 0"
+            additive="sum"
+            fill="freeze"
+            begin="XRRstep7.end"
+            dur="1s"
+            id="XRRstep8" />
+        <animateTransform
+            attributeName="transform" type="rotate"
+            values="0 0 0; -90 -3 0"
+            additive="sum"
+            dur="1s"
+            begin="XRRstep8.end"
+    		fill="freeze" 
+			id="XRRstep9" />
+		<animateTransform
+            attributeName="transform" type="translate"
+            values="0 0;
+                     -25 0"
+            additive="sum"
+            fill="freeze"
+            begin="XRRstep9.end"
+            dur="1s"
+            id="step10" />
+  	</use>
+    <path d="M732,63.75 l-285,0 a3,3 0 0,0 -3,3 l0,20 l0,-20 a3,-3 0 0,0 -3,-3 l90,0 a3,3 0 0,1 3,3 l0,40 a3,3 0 0,0 3,3 l20,0"
+    	id="XRRr" style="stroke: red; stroke-width:2; fill:none; display:none"/>
+<!-- animation and path for XLL leftt start position -->
+	<use id="XLLlani" xlink:href="#robot" transform="translate(732 296)" display="none">
         <animateTransform
             attributeName="transform" type="translate"
-            values="732 63.75;
-            		600 63.75"
+            values="0 0;
+                     -286 0"
             additive="sum"
+            fill="freeze"
+            begin="click"
             dur="3s"
-            />  </use>
--->
+            id="XLLstep1" />
+        <animateTransform
+            attributeName="transform" type="rotate"
+            values="0 0 0; 90 0 -3"
+            additive="sum"
+            dur="1s"
+            begin="XLLstep1.end"
+    		fill="freeze" 
+			id="XLLstep2" />
+		<animateTransform
+            attributeName="transform" type="translate"
+            values="0 0;
+                     -20 0"
+            additive="sum"
+            fill="freeze"
+            begin="XLLstep2.end"
+            dur="1s"
+            id="XLLstep3" />
+		<animateTransform
+            attributeName="transform" type="translate"
+            values="0 0;
+                     20 0"
+            additive="sum"
+            fill="freeze"
+            begin="XLLstep3.end + 1s"
+            dur="1s"
+            id="XLLstep4" />
+        <animateTransform
+            attributeName="transform" type="rotate"
+            values="0 0 0; 90 3 0"
+            additive="sum"
+            dur="1s"
+            begin="XLLstep4.end"
+    		fill="freeze" 
+			id="XLLstep5" />
+		<animateTransform
+            attributeName="transform" type="translate"
+            values="0 0;
+                     -90 0"
+            additive="sum"
+            fill="freeze"
+            begin="XLLstep5.end"
+            dur="1s"
+            id="XLLstep6" />
+        <animateTransform
+            attributeName="transform" type="rotate"
+            values="0 0 0; -90 3 0"
+            additive="sum"
+            dur="1s"
+            begin="XLLstep6.end"
+    		fill="freeze" 
+			id="XLLstep7" />
+		<animateTransform
+            attributeName="transform" type="translate"
+            values="0 0;
+                     -40 0"
+            additive="sum"
+            fill="freeze"
+            begin="XLLstep7.end"
+            dur="1s"
+            id="XLLstep8" />
+        <animateTransform
+            attributeName="transform" type="rotate"
+            values="0 0 0; 90 -3 0"
+            additive="sum"
+            dur="1s"
+            begin="XLLstep8.end"
+    		fill="freeze" 
+			id="XLLstep9" />
+		<animateTransform
+            attributeName="transform" type="translate"
+            values="0 0;
+                     -27 0"
+            additive="sum"
+            fill="freeze"
+            begin="XLLstep9.end"
+            dur="1s"
+            id="XLLstep10" />
+  	</use>
+    <path d="M732,296 l-285,0 a3,3 0 0,1 -3,-3 l0,-20 l0,20 a3,3 0 0,1 -3,3 l90,0 a3,3 0 0,0 3,-3 l0,-40 a3,3 0 0,1 3,-3 l20,0"
+    	id="XLLl" style="stroke: red; stroke-width:2; fill:none; display:none"/>
+</svg>
+		
+<div id="LeftButtons" style="position:absolute;left:750px;top:100px;zIndex:200;">
 
-<!-- alliance scale position, alliance switch position, start position  -->
-			<button id="LLLButton" class="left" type="button" style="display:none" onmousedown="chooseRoute(2)">Left Scale, Left Switch</button>
-			<button id="LLRButton" class="right" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Scale, Left Switch</button>
-			<button id="LLCButton" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Scale, Left Switch</button>
-			<button id="LRLButton" class="left" type="button" style="display:none" onmousedown="chooseRoute(3)">Left Scale, Right Switch</button>
-			<button id="LRRButton" class="right" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Scale, Right Switch</button>
-			<button id="LRCButton" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Scale, Right Switch</button>  
-			<button id="RLLButton" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Scale, Left Switch</button>  
-			<button id="RLRButton" class="right" type="button" style="display:none" onmousedown="chooseRoute(4)">Right Scale, Left Switch</button>  
-			<button id="RLCButton" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Scale, Left Switch</button>  
-			<button id="RRLButton" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Scale, Right Switch</button>  
-			<button id="RRRButton" class="right" type="button" style="display:none" onmousedown="chooseRoute(1)">Right Scale, Right Switch</button>  
-			<button id="RRCButton" class="center" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Scale, Right Switch</button> 
+<!-- alliance switch and scale positions, left start position  -->
+			<button id="LLLButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(2)">LLL</button>
+			<button id="LLRButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">LLR</button>
+			<button id="LRLButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">LRL</button>
+			<button id="RLLButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(3)">Left Scale, Right Switch</button>
+			<button id="LRRButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Scale, Right Switch</button>
+			<button id="RLRButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Left Scale, Right Switch</button>  
+			<button id="RRLButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(5)">Right Scale, Left Switch</button>  
+			<button id="RRRButtonL" class="left" type="button" style="display:none" onmousedown="chooseRoute(4)">Right Scale, Left Switch</button>  
 			<br><br> 
 			<button id="StartButton" class="center" type="button" style="display:none;color:orange" onclick="chooseStart()">Choose a new start position</button>  
 		</div>
