@@ -93,82 +93,62 @@
 //show routes depending on start position and game data
 	function showRoutes()
 	{
+		if (showingRoute == true)
+			{
+				route.setAttribute("style", "display:none");  
+  			}
 		switch (startPosition){
 		case 0:		//start left
 			if ((gameData[0] == "L") && (gameData[1] == "L"))
 				{
-					if (showingRoute == true)
-						{
-						 	route[0].setAttribute("style", "display:none");  
-							route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:none"); 
-  						}
-		        	route = document.getElementsByClassName("LLXl");
-					route[0].setAttribute("style", "display:block");  
-					route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:block");
+  					route = document.getElementById("LLXl");
+  					route.setAttribute("style", "display:block");
 					showingRoute = true;  
 				}
 			if ((gameData[0] == "R") && (gameData[1] == "L"))
 				{
-					if (showingRoute == true)
-						{
-						 	route[0].setAttribute("style", "display:none");  
-							route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:none");
-						}
-		        	route = document.getElementsByClassName("RLXl");
-					route[0].setAttribute("style", "display:block");  
-					route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:block");  
+  					route = document.getElementById("RLXl");
+  					route.setAttribute("style", "display:block");
 					showingRoute = true;  
 				}		
        		break;
 		case 1:		//start center
 			if ((gameData[0] == "L") && (gameData[1] == "L"))
 				{
-					if (showingRoute == true)
-						{
-						 	route[0].setAttribute("style", "display:none");  
-							route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:none");
-						}
-		        	route = document.getElementsByClassName("LLXc");
-					route[0].setAttribute("style", "display:block");  
-					route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:block");
+  					route = document.getElementById("LLXc");
+  					route.setAttribute("style", "display:block");
+					showingRoute = true;  
+				}
+			if ((gameData[0] == "L") && (gameData[1] == "R"))
+				{
+  					route = document.getElementById("LRXc");
+  					route.setAttribute("style", "display:block");
+					showingRoute = true;  
+				}
+			if ((gameData[0] == "R") && (gameData[1] == "L"))
+				{
+  					route = document.getElementById("RLXc");
+  					route.setAttribute("style", "display:block");
 					showingRoute = true;  
 				}
 			if ((gameData[0] == "R") && (gameData[1] == "R"))
 				{
-					if (showingRoute == true)
-						{
-						 	route[0].setAttribute("style", "display:none");  
-							route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:none");
-						}
-		        	route = document.getElementsByClassName("RRXc");
-					route[0].setAttribute("style", "display:block");  
-					route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:block");
+  					route = document.getElementById("RRXc");
+  					route.setAttribute("style", "display:block");
 					showingRoute = true;  
 				}
 			break;
 		case 2:		//start right
 			if ((gameData[0] == "R") && (gameData[1] == "R"))
 				{
-					if (showingRoute == true)
-						{
-						 	route[0].setAttribute("style", "display:none");  
-							route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:none");
-						}
-		        	route = document.getElementsByClassName("RRXr");
-					route[0].setAttribute("style", "display:block");  
-					route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:block");  
+  					route = document.getElementById("RRXr");
+  					route.setAttribute("style", "display:block");
 					showingRoute = true;  
 				}		
 			if ((gameData[0] == "L") && (gameData[1] == "R"))
 				{
-					if (showingRoute == true)
-						{
-						 	route[0].setAttribute("style", "display:none");  
-							route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:none");
-						}
-		        	route = document.getElementsByClassName("LRXr");
-					route[0].setAttribute("style", "display:block");  
-					route[1].setAttribute("style", "stroke:red; stroke-width:2; fill:none; display:block");  
+  					route = document.getElementById("LRXr");
+  					route.setAttribute("style", "display:block");
 					showingRoute = true;  
 				}		
 			break;

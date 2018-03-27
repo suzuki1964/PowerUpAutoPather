@@ -104,9 +104,9 @@
 	<use id="leftStart" xlink:href="#robot" transform="translate(732 296)" onmousedown="left()"/>
 
 <!-- animation and path for LLX left start position -->
-	<use class="LLXl" xlink:href="#robot" transform="translate(732 296)" display="none">
+	<g id="LLXl" display="none">
+		<use xlink:href="#robot" transform="translate(732 296)">
         <animateTransform
-            class="LLXlAnim"
             attributeName="transform" type="translate"
             values="0 0;
                      -307 0"
@@ -116,7 +116,6 @@
             dur="3s"
             id="LLXlstep1" />
         <animateTransform
-            class="LLXlAnim"
             attributeName="transform" type="rotate"
             values="0 18 0; 90 18 0"
             additive="sum"
@@ -125,7 +124,6 @@
     		fill="freeze" 
 			id="LLXlstep2" />
 		<animateTransform
-            class="LLXlAnim"
             attributeName="transform" type="translate"
             values="0 0;
                      -8 0"
@@ -135,7 +133,6 @@
             dur="1s"
             id="LLXlstep3" />
 		<animateTransform
-            class="LLXlAnim"
             attributeName="transform" type="translate"
             values="0 0;
                      8 0"
@@ -145,7 +142,6 @@
             dur="1s"
             id="LLXlstep4" />
         <animateTransform
-            class="LLXlAnim"
             attributeName="transform" type="rotate"
             values="0 18 0; 90 18 0"
             additive="sum"
@@ -154,7 +150,6 @@
     		fill="freeze" 
 			id="LLXlstep5" />
 		<animateTransform
-            class="LLXlAnim"
             attributeName="transform" type="translate"
             values="0 0;
                      -85 0"
@@ -164,7 +159,6 @@
             dur="1s"
             id="LLXlstep6" />
         <animateTransform
-            class="LLXlAnim"
             attributeName="transform" type="rotate"
             values="0 18 0; -90 18 0"
             additive="sum"
@@ -173,7 +167,6 @@
     		fill="freeze" 
 			id="LLXlstep7" />
 		<animateTransform
-            class="LLXlAnim"
             attributeName="transform" type="translate"
             values="0 0;
                      -47 0"
@@ -183,7 +176,6 @@
             dur="1s"
             id="LLXlstep8" />
         <animateTransform
-            class="LLXlAnim"
             attributeName="transform" type="rotate"
             values="0 18 0; 90 18 0"
             additive="sum"
@@ -192,7 +184,6 @@
     		fill="freeze" 
 			id="LLXlstep9" />
 		<animateTransform
-            class="LLXlAnim"
             attributeName="transform" type="translate"
             values="0 0;
                      -12 0"
@@ -202,11 +193,13 @@
             dur="1s"
             id="LLXlstep10" />
   	</use>
-    <path d="M732,296 l-285,0 a3,3 0 0,1 -3,-3 l0,-20 l0,20 a3,3 0 0,1 -3,3 l85,0 a3,3 0 0,0 3,-3 l0,-40 a3,3 0 0,1 3,-3 l25,0"
-    	class="LLXl" style="stroke: red; stroke-width:2; fill:none; display:none"/>
-    	
+    	<path d="M732,296 l-285,0 a3,3 0 0,1 -3,-3 l0,-20 l0,20 a3,3 0 0,1 -3,3 l85,0 a3,3 0 0,0 3,-3 l0,-40 a3,3 0 0,1 3,-3 l25,0"
+    		style="stroke: red; stroke-width:2; fill:none"/>
+	</g> 
+   	
 <!-- animation and path for RLX left start position -->
-	<use class="RLXl" xlink:href="#robot" transform="translate(732 296)" display="none">
+	<g id="RLXl" display="none">
+		<use xlink:href="#robot" transform="translate(732 296)">
         <animateTransform
             attributeName="transform" type="translate"
             values="0 0;
@@ -294,11 +287,13 @@
             dur="1s"
             id="RLXlstep10" />
   	</use>
-    <path d="M732,296 l-285,0 a3,3 0 0,1 -3,-3 l0,-20 l0,20 a3,3 0 0,1 -3,3 l85,0 a3,3 0 0,0 3,-3 l0,-180 a3,3 0 0,1 3,-3 l25,0"
-    	class="RLXl" style="stroke: red; stroke-width:2; fill:none; display:none"/>
+    	<path d="M732,296 l-285,0 a3,3 0 0,1 -3,-3 l0,-20 l0,20 a3,3 0 0,1 -3,3 l85,0 a3,3 0 0,0 3,-3 l0,-180 a3,3 0 0,1 3,-3 l25,0"
+    		style="stroke: red; stroke-width:2; fill:none"/>
+ 	</g>
     	
 <!-- animation and path for LLX center start position -->
-	<use class="LLXc" xlink:href="#robot" transform="translate(732 164)" display="none">
+	<g id="LLXc" display="none">
+		<use xlink:href="#robot" transform="translate(732 164)">
         <animateTransform
             attributeName="transform" type="translate"
             values="0 0;
@@ -420,11 +415,166 @@
             dur="1s"
             id="LLXcstep14" />
   	</use>
-    <path d="M732,164 l-4,0  l-105,138 l-174,0 l0,-30 l0,30  l80,0 a3,3 0 0,0 3,-3 l0,-45 a3,3 0 0,1 3,-3 l20,0"
-    	class="LLXc" style="stroke: red; stroke-width:2; fill:none; display:none"/>
+	    <path d="M732,164 l-4,0  l-105,138 l-174,0 l0,-30 l0,30  l80,0 a3,3 0 0,0 3,-3 l0,-45 a3,3 0 0,1 3,-3 l20,0"
+	    	style="stroke: red; stroke-width:2; fill:none"/>
+	</g>
  
+	<g id="LRXc" display="none">
+		<use xlink:href="#robot" transform="translate(732 164)">
+        	<animateTransform
+            	attributeName="transform" type="translate"
+            	values="0 0;
+                     -21 0"
+            	additive="sum"
+            	fill="freeze"
+            	begin="click"
+            	dur="1s"
+            	id="LRXcstep1" />
+        	<animateTransform
+           		attributeName="transform" type="rotate"
+            	values="0 18 0; -53 18 0"
+            	additive="sum"
+            	dur="1s"
+            	begin="LRXcstep1.end"
+    			fill="freeze" 
+				id="LRXcstep2" />
+			<animateTransform
+            	attributeName="transform" type="translate"
+            	values="0 0;
+                     -90 0"
+            	additive="sum"
+            	fill="freeze"
+            	begin="LRXcstep2.end"
+            	dur="2s"
+            	id="LRXcstep3" />
+			<animateTransform
+        		attributeName="transform" type="rotate"
+            	values="0 18 0; 53 18 0"
+            	additive="sum"
+            	fill="freeze"
+            	begin="LRXcstep3.end"
+            	dur="1s"
+            	id="LRXcstep4" />
+			<animateTransform
+            	attributeName="transform" type="translate"
+            	values="0 0;
+                     -28 0"
+            	additive="sum"
+            	fill="freeze"
+            	begin="LRXcstep4.end"
+            	dur="2s"
+            	id="LRXcstep5" />
+			<animateTransform
+            	attributeName="transform" type="translate"
+            	values="0 0;
+                     55 0"
+            	additive="sum"
+            	fill="freeze"
+            	begin="LRXcstep5.end + 1s"
+            	dur="1s"
+            	id="LRXcstep6" />
+        	<animateTransform
+            	attributeName="transform" type="rotate"
+            	values="0 18 0; 90 18 0"
+            	additive="sum"
+            	dur="1s"
+            	begin="LRXcstep6.end"
+    			fill="freeze" 
+				id="LRXcstep7" />
+        	<animateTransform
+	            attributeName="transform" type="translate"
+    	        values="0 0;
+            		 -55 0"
+        	    additive="sum"
+            	dur="1s"
+	            begin="LRXcstep7.end"
+    			fill="freeze" 
+				id="LRXcstep8" />
+			<animateTransform
+    	        attributeName="transform" type="rotate"
+        	    values="0 18 0; -90 18 0"
+            	additive="sum"
+	            fill="freeze"
+    	        begin="LRXcstep8.end"
+        	    dur="1s"
+            	id="LRXcstep9" />
+			<animateTransform
+    	        attributeName="transform" type="translate"
+        	    values="0 0;
+                     -13 0"
+            	additive="sum"
+	            fill="freeze"
+    	        begin="LRXcstep9.end"
+        	    dur="1s"
+            	id="LRXcstep10" />
+			<animateTransform
+    	        attributeName="transform" type="translate"
+        	    values="0 0;
+                     21 0"
+            	additive="sum"
+	            fill="freeze"
+    	        begin="LRXcstep10.end + 1s"
+        	    dur="1s"
+            	id="LRXcstep11" />
+	        <animateTransform
+    	        attributeName="transform" type="rotate"
+        	    values="0 18 0; 55 18 0"
+            	additive="sum"
+	            dur="1s"
+    	        begin="LRXcstep11.end"
+    			fill="freeze" 
+				id="LRXcstep12" />
+			<animateTransform
+    	        attributeName="transform" type="translate"
+        	    values="0 0;
+                     -155 0"
+            	additive="sum"
+	            fill="freeze"
+    	        begin="LRXcstep12.end"
+        	    dur="1s"
+            	id="LRXcstep13" />
+	        <animateTransform
+    	        attributeName="transform" type="rotate"
+        	    values="0 18 0; -55 18 0"
+            	additive="sum"
+	            dur="1s"
+    	        begin="LRXcstep13.end"
+    			fill="freeze" 
+				id="LRXcstep14" />
+			<animateTransform
+    	        attributeName="transform" type="translate"
+        	    values="0 0;
+                     -170 0"
+            	additive="sum"
+	            fill="freeze"
+    	        begin="LRXcstep14.end"
+        	    dur="1s"
+            	id="LRXcstep15" />
+	        <animateTransform
+    	        attributeName="transform" type="rotate"
+        	    values="0 18 0; -90 18 0"
+            	additive="sum"
+	            dur="1s"
+    	        begin="LRXcstep15.end"
+    			fill="freeze" 
+				id="LRXcstep16" />
+			<animateTransform
+    	        attributeName="transform" type="translate"
+        	    values="0 0;
+                     -18 0"
+            	additive="sum"
+	            fill="freeze"
+    	        begin="LRXcstep16.end"
+        	    dur="1s"
+            	id="LRXcstep17" />
+	  	</use>
+	    <path d="M732,164 l-3,0  l-54,72 l-45,0 l72,0 l0,-55 l-29,0 l38,0 l-90,-128 l-170,0 l0,50"
+	    	style="stroke: red; stroke-width:2; fill:none"/>
+	</g>
+
 <!-- animation and path for RRX center start position -->
-	<use class="RRXc" xlink:href="#robot" transform="translate(732 164)" display="none">
+	<g id="RRXc" display="none">
+		<use xlink:href="#robot" transform="translate(732 164)">
         <animateTransform
             attributeName="transform" type="translate"
             values="0 0;
@@ -488,7 +638,7 @@
         <animateTransform
             attributeName="transform" type="translate"
             values="0 0;
-            		 12 0"
+            		 20 0"
             additive="sum"
             dur="1s"
             begin="RRXcstep7.end + 1s"
@@ -496,7 +646,7 @@
 			id="RRXcstep8" />
 		<animateTransform
             attributeName="transform" type="rotate"
-            values="0 18 0; -90 18 0"
+            values="0 18 0; -54 18 0"
             additive="sum"
             fill="freeze"
             begin="RRXcstep8.end"
@@ -505,15 +655,15 @@
 		<animateTransform
             attributeName="transform" type="translate"
             values="0 0;
-                     -83 0"
+                     -105 0"
             additive="sum"
             fill="freeze"
             begin="RRXcstep9.end"
-            dur="1s"
+            dur="2s"
             id="RRXcstep10" />
         <animateTransform
             attributeName="transform" type="rotate"
-            values="0 18 0; 90 18 0"
+            values="0 18 0; -36 18 0"
             additive="sum"
             dur="1s"
             begin="RRXcstep10.end"
@@ -522,35 +672,20 @@
 		<animateTransform
             attributeName="transform" type="translate"
             values="0 0;
-                     -53 0"
+                     -8 0"
             additive="sum"
             fill="freeze"
             begin="RRXcstep11.end"
             dur="1s"
             id="RRXcstep12" />
-        <animateTransform
-            attributeName="transform" type="rotate"
-            values="0 18 0; -90 18 0"
-            additive="sum"
-            dur="1s"
-            begin="RRXcstep12.end"
-    		fill="freeze" 
-			id="RRXcstep13" />
-		<animateTransform
-            attributeName="transform" type="translate"
-            values="0 0;
-                     -8 0"
-            additive="sum"
-            fill="freeze"
-            begin="RRXcstep13.end"
-            dur="1s"
-            id="RRXcstep14" />
   	</use>
-    <path d="M732,164 l-4,0  l-105,-107 l-176,0 l0,30 l0,-30  l83,0 l0,53 l24,0"
-    	class="RRXc" style="stroke: red; stroke-width:2; fill:none; display:none"/>
+	    <path d="M732,164 l-4,0  l-105,-107 l-176,0 l0,30 l0,-38  l83,61 l24,0"
+	    	style="stroke: red; stroke-width:2; fill:none"/>
+	</g>
  
 <!-- animation and path for RRX right start position -->
-	<use class="RRXr" xlink:href="#robot" transform="translate(732 63.75)" display="none">
+	<g id="RRXr" display="none">
+		<use xlink:href="#robot" transform="translate(732 63.75)">
         <animateTransform
             attributeName="transform" type="translate"
             values="0 0;
@@ -621,11 +756,13 @@
             dur="1s"
             id="RRXstep8" />
   	</use>
-    <path d="M732,63.75 l-285,0 a3,3 0 0,0 -3,3 l0,20 l0,-35 l87,58 l27,0"
-    	class="RRXr" style="stroke: red; stroke-width:2; fill:none; display:none"/>
+	    <path d="M732,63.75 l-285,0 a3,3 0 0,0 -3,3 l0,20 l0,-35 l87,58 l27,0"
+	    	style="stroke: red; stroke-width:2; fill:none"/>
+	</g>
     	
 <!-- animation and path for LRX right start position -->
-	<use class="LRXr" xlink:href="#robot" transform="translate(732 63.75)" display="none">
+	<g id="LRXr" display="none">
+		<use xlink:href="#robot" transform="translate(732 63.75)">
         <animateTransform
             attributeName="transform" type="translate"
             values="0 0;
@@ -713,8 +850,9 @@
             dur="1s"
             id="step10" />
   	</use>
-    <path d="M732,63.75 l-285,0 a3,3 0 0,0 -3,3 l0,20 l0,-20 a3,-3 0 0,0 -3,-3 l85,0 a3,3 0 0,1 3,3 l0,180 a3,3 0 0,0 3,3 l25,0"
-    	class="LRXr" style="stroke: red; stroke-width:2; fill:none; display:none"/>
+    	<path d="M732,63.75 l-285,0 a3,3 0 0,0 -3,3 l0,20 l0,-20 a3,-3 0 0,0 -3,-3 l85,0 a3,3 0 0,1 3,3 l0,180 a3,3 0 0,0 3,3 l25,0"
+    	style="stroke: red; stroke-width:2; fill:none"/>
+	</g>
     	
 </svg>
 		
