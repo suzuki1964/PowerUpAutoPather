@@ -105,9 +105,21 @@
   					route.setAttribute("style", "display:block");
 					showingRoute = true;  
 				}
+			if ((gameData[0] == "L") && (gameData[1] == "R"))
+				{
+  					route = document.getElementById("LRXl");
+  					route.setAttribute("style", "display:block");
+					showingRoute = true;  
+				}
 			if ((gameData[0] == "R") && (gameData[1] == "L"))
 				{
   					route = document.getElementById("RLXl");
+  					route.setAttribute("style", "display:block");
+					showingRoute = true;  
+				}		
+			if ((gameData[0] == "R") && (gameData[1] == "R"))
+				{
+  					route = document.getElementById("RRXl");
   					route.setAttribute("style", "display:block");
 					showingRoute = true;  
 				}		
@@ -139,15 +151,27 @@
 				}
 			break;
 		case 2:		//start right
-			if ((gameData[0] == "R") && (gameData[1] == "R"))
+			if ((gameData[0] == "L") && (gameData[1] == "L"))
 				{
-  					route = document.getElementById("RRXr");
+ 					route = document.getElementById("LLXr");
   					route.setAttribute("style", "display:block");
 					showingRoute = true;  
 				}		
 			if ((gameData[0] == "L") && (gameData[1] == "R"))
 				{
-  					route = document.getElementById("LRXr");
+ 					route = document.getElementById("LRXr");
+  					route.setAttribute("style", "display:block");
+					showingRoute = true;  
+				}		
+			if ((gameData[0] == "R") && (gameData[1] == "L"))
+				{
+ 					route = document.getElementById("RLXr");
+  					route.setAttribute("style", "display:block");
+					showingRoute = true;  
+				}		
+			if ((gameData[0] == "R") && (gameData[1] == "R"))
+				{
+ 					route = document.getElementById("RRXr");
   					route.setAttribute("style", "display:block");
 					showingRoute = true;  
 				}		
